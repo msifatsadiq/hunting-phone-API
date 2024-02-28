@@ -1,5 +1,5 @@
-const loadData = async () => {
-    const res = await fetch('https://openapi.programming-hero.com/api/phones?search=iphone')
+const loadData = async (searchText) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     const data = await res.json()
     const phones = data.data;
     // console.log(phones);
@@ -8,14 +8,15 @@ const loadData = async () => {
 
 const displayPhones = phones => {
     const phonesContainer = document.getElementById('phones-container');
+    phonesContainer.textContent = '';
     phones.forEach(phone => {
-        console.log(phone);
+        // console.log(phone);
         const phonesDiv = document.createElement('div');
-        phonesDiv.classList = `card w-96 bg-base-100 shadow-xl`;
+        phonesDiv.classList = `card bg-pink-100  shadow-xl`;
         phonesDiv.innerHTML = `
-    <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+    <figure><img src=" ${phone.image}" /></figure>
     <div class="card-body">
-        <h2 class="card-title">Shoes!</h2>
+        <h2 class="card-title">${phone.phone_name}</h2>
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div class="card-actions justify-end">
         <button class="btn btn-primary">Buy Now</button>
@@ -23,8 +24,19 @@ const displayPhones = phones => {
     </div>
     `;
         phonesContainer.appendChild(phonesDiv);
+
     });
 
 }
 
-loadData()
+
+const searchClicked = () => {
+    // console.log(searchClicked);
+    const searchField = document.getElementById('searchField');
+    // console.log(searchField);
+    const searchFieldValue = searchField.value;
+    console.log(searchFieldValue);
+    loadData(searchFieldValue)
+}
+
+// loadData()
