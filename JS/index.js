@@ -9,6 +9,17 @@ const loadData = async (searchText) => {
 const displayPhones = phones => {
     const phonesContainer = document.getElementById('phones-container');
     phonesContainer.textContent = '';
+
+    // display show all button if there are more than 12 phones
+    const showAllContainer = document.getElementById('show-all-container');
+    if (phones.length > 12) {
+        showAllContainer.classList.remove('hidden')
+    } else {
+        showAllContainer.classList.add('hidden')
+    }
+    // display only first 12 phone
+    phones = phones.slice(0, 12)
+    // console.log(phones)
     phones.forEach(phone => {
         // console.log(phone);
         const phonesDiv = document.createElement('div');
@@ -29,6 +40,7 @@ const displayPhones = phones => {
 
 }
 
+// handel search button
 
 const searchClicked = () => {
     // console.log(searchClicked);
@@ -37,6 +49,13 @@ const searchClicked = () => {
     const searchFieldValue = searchField.value;
     console.log(searchFieldValue);
     loadData(searchFieldValue)
+}
+
+const searchClicked2 = () => {
+    const searchField2 = document.getElementById('searchField2');
+    const searchFieldValue2 = searchField2.value;
+    console.log(searchFieldValue2);
+    loadData(searchFieldValue2)
 }
 
 // loadData()
